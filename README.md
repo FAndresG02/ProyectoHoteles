@@ -1,4 +1,4 @@
-# Proyecto Hoteles 🏨
+# Proyecto Hoteles 
 
 [![Docker](https://img.shields.io/badge/Docker-enabled-blue?logo=docker&style=flat-square)](https://www.docker.com/)
 [![Angular](https://img.shields.io/badge/Frontend-Angular-red?logo=angular&style=flat-square)](https://angular.io/)
@@ -8,7 +8,7 @@
 
 ## Descripción
 
-**Proyecto Hoteles** es una aplicación fullstack de búsqueda y reserva de hoteles que implementa una arquitectura de microservicios. Combina una interfaz Angular moderna con múltiples backends Spring Boot especializados y una base de datos MySQL relacional. El proyecto está diseñado como un sistema integral de portafolio profesional enfocado en la consulta de disponibilidad de hoteles, gestión de servicios alojados y reseñas de usuarios.
+**Proyecto Hoteles** es una aplicación fullstack de búsqueda y reserva de hoteles que implementa una arquitectura de microservicios. Combina una interfaz Angular moderna con múltiples backends Spring Boot especializados y una base de datos MySQL relacional. El proyecto está diseñado enfocado en la consulta de disponibilidad de hoteles, gestión de servicios alojados y reseñas de usuarios.
 
 ## Demo
 
@@ -18,19 +18,34 @@
 - **Reviews Microservicio:** `http://localhost:8082`
 - **MySQL:** `localhost:3307`
 
----
+### Capturas de Pantalla
+
+#### 1. Pantalla principal de la aplicación
+![Pantalla principal](imagenes/appPrincipal.png)
+
+#### 2. Filtrado de hoteles
+
+##### Hotel California
+![Hotel California](imagenes/appPrincipal.png)
+
+##### Hotel Transilvania
+![Hotel Transilvania](imagenes/hotelTransilvania.png)
+
+##### Hotel Miami
+![Hotel Miami](imagenes/hotelMiami.png)
+
 
 ## Características principales
 
-- 🔍 Búsqueda avanzada de hoteles por ciudad y fechas
-- 🏨 Información detallada de hoteles con servicios incluidos
-- ⭐ Sistema de calificaciones y reseñas de usuarios
-- 🏗️ Arquitectura de microservicios desacoplados
-- 💾 Base de datos relacional con procedures almacenados
-- 🔄 Comunicación inter-microservicios con RestTemplate
-- 📱 Interfaz responsiva con Angular 17
-- 🐳 Contenedores Docker para despliegue reproducible
-- 🚀 Spring Boot 4 con Spring Data JPA
+- Búsqueda de hoteles por ciudad y fechas
+- Información de hoteles con servicios incluidos
+- Sistema de calificaciones y reseñas de usuarios
+- Arquitectura de microservicios desacoplados
+- Base de datos relacional con procedures almacenados
+- Comunicación inter-microservicios con RestTemplate
+- Interfaz responsiva con Angular 17
+- Contenedores Docker para despliegue reproducible
+- Spring Boot 4 con Spring Data JPA
 
 ---
 
@@ -44,7 +59,7 @@ Proyecto construido con una arquitectura de microservicios de 3 capas:
    - Orquestación central de datos de hoteles
    - Agregación de información desde otros microservicios
    - Búsqueda de disponibilidad con filtros de ciudad y fechas
-   - Consulta de servicios y reseñas asociados
+   - Consulta de servicios y reseñas asociados a los hoteles
 
 2. **Hotel Services Service** (Puerto 8081)
    - Gestión de servicios disponibles en hoteles
@@ -176,14 +191,13 @@ ProyectoHoteles/
 - Java 17 o superior
 - Maven 3.8+
 - MySQL 8.0 (si ejecutas sin Docker)
-
-> **Nota:** Si usas Docker Compose, solo necesitas tener Docker y Docker Compose instalados.
+- Angular 17
 
 ---
 
 ## Instalación
 
-### Opción 1: Con Docker Compose (Recomendado)
+### Opción 1: Con Docker Compose 
 
 #### Paso 1: Clonar el repositorio
 
@@ -192,20 +206,28 @@ git clone https://github.com/<tu-usuario>/ProyectoHoteles.git
 cd ProyectoHoteles
 ```
 
-#### Paso 2: Construir las imágenes
+#### Paso 2:  Construir las imágenes Docker de los microservicios
 
 ```bash
-cd docker-compose
-docker compose build
+cd hotel
+docker build -t hotel-service .
+
+cd ../con-hotels-services
+docker build -t hotel-services-service .
+
+cd ../reviews
+docker build -t reviews-service .
 ```
 
-#### Paso 3: Iniciar los servicios
+#### Paso 3: Levantar los servicios con Docker Compose
 
 ```bash
+cd ../docker-compose
 docker compose up -d
 ```
 
-Este comando levantará:
+Este comando levantará los contenedores utilizando las imágenes previamente construidas:
+
 - MySQL (localhost:3307)
 - Hotel Service (localhost:8084)
 - Services Microservice (localhost:8081)
@@ -264,9 +286,9 @@ npm install
 ng serve
 ```
 
-Accede en tu navegador a `http://localhost:4200`
+Accede desde tu navegador a `http://localhost:4200`
 
-> **Nota:** Requiere una instancia MySQL en ejecución. Ajusta las propiedades de conexión en `application.properties` de cada microservicio.
+> **Nota:** Requiere una instancia de MySQL en ejecución. Ajusta las propiedades de conexión en `application.properties` de cada microservicio.
 
 ---
 
@@ -325,7 +347,7 @@ Si ejecutas sin Docker, cambia las URLs de conexión a base de datos:
 
 ```properties
 # En todos los application.properties
-spring.datasource.url=jdbc:mysql://localhost:3307/db_hotelsbook?allowPublicKeyRetrieval=true&useSSL=false
+spring.datasource.url=jdbc:mysql://localhost:3306/db_hotelsbook?allowPublicKeyRetrieval=true&useSSL=false
 ```
 
 ---
@@ -345,27 +367,45 @@ spring.datasource.url=jdbc:mysql://localhost:3307/db_hotelsbook?allowPublicKeyRe
 
 **Ejemplo:**
 ```text
-GET /api/hotels/available?startDate=2024-06-01&endDate=2024-06-10&cityName=Madrid
+GET /api/hotels/available?startDate=2024-06-01&endDate=2024-06-10&cityName=California
 ```
 
 **Respuesta:**
 ```json
 [
-  {
-    "id": 1,
-    "name": "Hotel Ejemplo",
-    "description": "Hotel de lujo en el centro",
-    "picture": "https://...",
-    "price": 150.00,
-    "cityName": "Madrid",
-    "street": "Calle Principal",
-    "number": "42",
-    "averageCalification": 4.5,
-    "services": [
-      { "serviceId": 1, "serviceName": "WiFi Gratis" },
-      { "serviceId": 2, "serviceName": "Piscina" }
-    ]
-  }
+    {
+        "averageCalification": 4.5,
+        "cityName": "California",
+        "description": "Hotel ubicado en el centro del estado de California",
+        "id": 1,
+        "name": "Hotel California",
+        "number": "541",
+        "picture": "http://localhost:8084/images/hotel1.jpg",
+        "price": 300.0,
+        "services": [
+            {
+                "serviceId": 3,
+                "serviceName": "Aire acondicionado"
+            },
+            {
+                "serviceId": 5,
+                "serviceName": "Gym"
+            },
+            {
+                "serviceId": 2,
+                "serviceName": "Parking gratis"
+            },
+            {
+                "serviceId": 4,
+                "serviceName": "Restaurante"
+            },
+            {
+                "serviceId": 1,
+                "serviceName": "Wifi gratis"
+            }
+        ],
+        "street": "Los Ángeles"
+    }
 ]
 ```
 
@@ -386,12 +426,84 @@ GET /api/hotels/services/1,2,3
 **Respuesta:**
 ```json
 [
-  {
-    "hotelId": 1,
-    "hotelName": "Hotel Ejemplo",
-    "serviceId": 1,
-    "serviceName": "WiFi Gratis"
-  }
+    {
+        "hotelId": 1,
+        "hotelName": "Hotel California",
+        "services": [
+            {
+                "serviceId": 3,
+                "serviceName": "Aire acondicionado"
+            },
+            {
+                "serviceId": 5,
+                "serviceName": "Gym"
+            },
+            {
+                "serviceId": 2,
+                "serviceName": "Parking gratis"
+            },
+            {
+                "serviceId": 4,
+                "serviceName": "Restaurante"
+            },
+            {
+                "serviceId": 1,
+                "serviceName": "Wifi gratis"
+            }
+        ]
+    },
+    {
+        "hotelId": 2,
+        "hotelName": "Hotel Transilvania",
+        "services": [
+            {
+                "serviceId": 3,
+                "serviceName": "Aire acondicionado"
+            },
+            {
+                "serviceId": 5,
+                "serviceName": "Gym"
+            },
+            {
+                "serviceId": 2,
+                "serviceName": "Parking gratis"
+            },
+            {
+                "serviceId": 4,
+                "serviceName": "Restaurante"
+            },
+            {
+                "serviceId": 1,
+                "serviceName": "Wifi gratis"
+            }
+        ]
+    },
+    {
+        "hotelId": 3,
+        "hotelName": "Hotel Miami",
+        "services": [
+            {
+                "serviceId": 3,
+                "serviceName": "Aire acondicionado"
+            },
+            {
+                "serviceId": 5,
+                "serviceName": "Gym"
+            },
+            {
+                "serviceId": 2,
+                "serviceName": "Parking gratis"
+            },
+            {
+                "serviceId": 4,
+                "serviceName": "Restaurante"
+            },
+            {
+                "serviceId": 1,
+                "serviceName": "Wifi gratis"
+            }
+        ]
+    }
 ]
 ```
 
@@ -412,11 +524,18 @@ GET /api/hotels/reviews/1,2,3
 **Respuesta:**
 ```json
 [
-  {
-    "reviewId": 1,
-    "reviewName": "Hotel Ejemplo",
-    "averageCalification": 4.5
-  }
+    {
+        "hotelId": 1,
+        "averageCalification": 4.5
+    },
+    {
+        "hotelId": 2,
+        "averageCalification": 4.5
+    },
+    {
+        "hotelId": 3,
+        "averageCalification": 4.5
+    }
 ]
 ```
 
@@ -426,36 +545,77 @@ GET /api/hotels/reviews/1,2,3
 
 Las siguientes tablas están disponibles en MySQL:
 
-### `address`
-Almacena direcciones de hoteles.
-- `id` (INT, PK, AI)
-- `street` (VARCHAR)
-- `number` (INT)
-- `city_id` (INT, FK)
+### address
+Almacena direcciones asociadas a los hoteles.
 
-### `hotel`
-Almacena información principal de hoteles.
-- `id` (INT, PK, AI)
-- `name` (VARCHAR)
-- `description` (TEXT)
-- `picture` (VARCHAR)
-- `price` (DECIMAL)
-- `address_id` (INT, FK)
+- id (INT, PK, AI)
+- street (VARCHAR(100))
+- number (INT)
+- city_id (INT, FK)
 
-### `city`
-Almacena ciudades disponibles.
-- `id` (INT, PK, AI)
-- `name` (VARCHAR)
+### city
+Almacena las ciudades disponibles en el sistema.
 
-### `service` y `hotel_service`
-Relación muchos-a-muchos para servicios de hoteles.
+- id (INT, PK, AI)
+- name (VARCHAR(100))
+- country (VARCHAR(100))
 
-### `review`
-Almacena reseñas y calificaciones.
-- `id` (INT, PK, AI)
-- `hotel_id` (INT, FK)
-- `rating` (DECIMAL)
-- `comment` (TEXT)
+### hotel
+Almacena la información principal de los hoteles.
+
+- id (INT, PK, AI)
+- name (VARCHAR(200))
+- price (DECIMAL(10,2))
+- picture (VARCHAR(255))
+- description (VARCHAR(500))
+- address_id (INT, FK)
+
+### service
+Almacena los servicios o amenidades disponibles en hoteles.
+
+- id (INT, PK, AI)
+- nombre (VARCHAR(200))
+
+### service_has_hotel
+Tabla intermedia para la relación muchos-a-muchos entre hoteles y servicios.
+
+- service_id (INT, FK)
+- hotel_id (INT, FK)
+
+### review
+Almacena reseñas y calificaciones de hoteles.
+
+- id (INT, PK, AI)
+- calification (DECIMAL(3,1))
+- description (VARCHAR(255))
+
+### hotel_has_review
+Tabla intermedia que relaciona hoteles con sus reseñas.
+
+- hotel_id (INT, FK)
+- review_id (INT, FK)
+
+### room
+Almacena habitaciones disponibles en el sistema.
+
+- id (INT, PK, AI)
+- number (INT)
+- description (VARCHAR(200))
+- number_passenger (INT)
+
+### reservation
+Almacena información de reservas realizadas por huéspedes.
+
+- id (INT, PK, AI)
+- date_in (DATE)
+- date_out (DATE)
+- room_id (INT, FK)
+
+### reservation_has_hotel
+Tabla intermedia que relaciona reservas con hoteles.
+
+- reservation_id (INT, FK)
+- hotel_id (INT, FK)
 
 ### Procedures Almacenados
 
@@ -484,95 +644,32 @@ Este patrón garantiza:
 
 ## Mejoras futuras
 
-- [ ] Implementar caché distribuida (Redis) para hoteles frecuentes
-- [ ] Autenticación y autorización con JWT
-- [ ] Sistema de reservas transaccionales
-- [ ] Notificaciones en tiempo real con WebSockets
-- [ ] Búsqueda avanzada con filtros adicionales (rango de precios, calificación mínima)
-- [ ] Paginación de resultados
-- [ ] API Gateway para enrutamiento centralizado
-- [ ] Circuit Breaker para resiliencia inter-microservicios
-- [ ] Logging y monitoreo con ELK Stack
-- [ ] Testing unitario y E2E comprehensive
-- [ ] Despliegue en Kubernetes
-- [ ] Internacionalización (i18n) en frontend
+- Autenticación y autorización con JWT
+- Sistema de reservas transaccionales
+- Notificaciones en tiempo real con WebSockets
+- Búsqueda avanzada con filtros adicionales (rango de precios, calificación mínima)
+- Paginación de resultados
+- Despliegue en Kubernetes
+- Internacionalización (i18n) en frontend
+- Despliegue en AWS / Azure / DigitalOcean
+
 
 ---
 
 ## Buenas prácticas implementadas
 
-✅ **Arquitectura de Microservicios:** Servicios desacoplados y especializados  
-✅ **Spring Data JPA:** Persistencia con ORM estándar  
-✅ **Procedures Almacenados:** Consultas optimizadas en BD  
-✅ **DTOs:** Transferencia de datos sin exponer entidades  
-✅ **RestTemplate:** Comunicación inter-microservicios HTTP  
-✅ **Logging Estructurado:** SLF4J con Logback  
-✅ **Control de Errores:** Respuestas de error con códigos HTTP apropiados  
-✅ **CORS Configurado:** Comunicación segura frontend-backend  
-✅ **Docker Compose:** Infraestructura reproducible  
-✅ **Maven Wrapper:** Ejecución consistente sin instalación global  
-✅ **Separación de capas:** Controller → Service → Repository  
-✅ **Configuración externalizables:** application.properties  
-
----
-
-## Guía de desarrollo
-
-### Agregar un nuevo endpoint en Hotel Service
-
-1. Crear el método en `HotelService` (service layer)
-2. Exponer mediante método GET en `HotelController`
-3. Usar `ResponseEntity<?>` para manejo flexible de respuestas
-4. Documentar parámetros y ejemplos
-
-### Agregar un nuevo microservicio
-
-1. Crear carpeta de proyecto con estructura Maven
-2. Copiar `pom.xml` de un microservicio existente
-3. Implementar entidades, repositorios, servicios, controladores
-4. Agregar `Dockerfile` con imagen base `openjdk:17-slim`
-5. Registrar en `docker-compose.yml`
-6. Configurar RestTemplate en otros servicios para comunicación
-
-### Actualizar esquema de BD
-
-1. Modificar `db_hotelsbook.sql` en `docker-compose/`
-2. Recrear contenedor de MySQL: `docker compose down && docker compose up -d`
-3. Validar cambios en logs: `docker compose logs db`
-
----
-
-## Troubleshooting
-
-### Los microservicios no se conectan a MySQL
-- Verifica que MySQL esté corriendo: `docker compose ps`
-- Valida credenciales en `application.properties`
-- Revisa logs: `docker compose logs services` (o el nombre del servicio)
-
-### Frontend no ve los datos
-- Verifica que todos los microservicios estén activos
-- Abre Developer Tools (F12) → Network para inspeccionar requests
-- Valida URLs en `HotelsService` y configuración CORS
-
-### Puerto ya está en uso
-```bash
-# Cambiar puertos en docker-compose.yml
-# Ejemplo: mapear 8091:8084 en lugar de 8084:8084
-docker compose down
-docker compose up -d
-```
-
-### Rebuild de imágenes Docker
-```bash
-docker compose build --no-cache
-docker compose up -d
-```
-
----
-
-## Licencia
-
-Este proyecto está bajo licencia MIT. Consulta el archivo LICENSE para más detalles.
+- **Arquitectura de Microservicios:** Servicios desacoplados y especializados  
+- **Spring Data JPA:** Persistencia con ORM estándar  
+- **Procedures Almacenados:** Consultas optimizadas en BD  
+- **DTOs:** Transferencia de datos sin exponer entidades  
+- **RestTemplate:** Comunicación inter-microservicios HTTP  
+- **Logging Estructurado:** SLF4J con Logback  
+- **Control de Errores:** Respuestas de error con códigos HTTP apropiados  
+- **CORS Configurado:** Comunicación segura frontend-backend  
+- **Docker Compose:** Infraestructura reproducible  
+- **Maven Wrapper:** Ejecución consistente sin instalación global  
+- **Separación de capas:** Controller → Service → Repository  
+- **Configuración externalizables:** application.properties  
 
 ---
 
@@ -581,17 +678,6 @@ Este proyecto está bajo licencia MIT. Consulta el archivo LICENSE para más det
 - **Nombre:** Frank Andrés
 - **Proyecto:** Proyecto Hoteles
 - **Perfil:** Fullstack Angular + Spring Boot Microservicios
-- **Fecha de creación:** Mayo 2026
 
 ---
 
-## Agradecimientos
-
-Este proyecto demuestra patrones modernos de desarrollo con:
-- Arquitectura de microservicios
-- Spring Boot y Spring Data JPA
-- Angular 17 y componentes reactivos
-- Docker y contenedores
-- Base de datos relacional MySQL
-
-Ideal para portafolio profesional y aprendizaje de tecnologías enterprise.
