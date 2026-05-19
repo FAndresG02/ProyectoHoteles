@@ -1,0 +1,51 @@
+2026-02-19 12:11:35 - Starting ReviewsApplication using Java 21.0.10 with PID 10327 (/home/franklin/Documentos/ProyectosAngularSpring/ProyectoHoteles/reviews/target/classes started by franklin in /home/franklin/Documentos/ProyectosAngularSpring/ProyectoHoteles/reviews)
+2026-02-19 12:11:35 - No active profile set, falling back to 1 default profile: "default"
+2026-02-19 12:11:35 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-19 12:11:35 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-19 12:11:36 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-19 12:11:36 - Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2026-02-19 12:11:36 - Tomcat initialized with port 8082 (http)
+2026-02-19 12:11:36 - Initializing ProtocolHandler ["http-nio-8082"]
+2026-02-19 12:11:36 - Starting service [Tomcat]
+2026-02-19 12:11:36 - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-19 12:11:36 - Root WebApplicationContext: initialization completed in 372 ms
+2026-02-19 12:11:36 - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-19 12:11:36 - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-19 12:11:36 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-19 12:11:36 - HikariPool-1 - Starting...
+2026-02-19 12:11:36 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@34826912
+2026-02-19 12:11:36 - HikariPool-1 - Start completed.
+2026-02-19 12:11:36 - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 12:11:36 - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/db_hotelsbook?allowPublicKeyRetrieval=true&useSSL=false]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.4.8
+	Default catalog/schema: db_hotelsbook/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-19 12:11:36 - HHH000182: No default (no-argument) constructor for class [com.hotelsbook.reviews.entity.ReviewEntity] (class must be instantiated by Interceptor)
+2026-02-19 12:11:36 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 12:11:36 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-19 12:11:37 - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-19 12:11:37 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-19 12:11:37 - Starting ProtocolHandler ["http-nio-8082"]
+2026-02-19 12:11:37 - Tomcat started on port 8082 (http) with context path '/'
+2026-02-19 12:11:37 - Started ReviewsApplication in 1.445 seconds (process running for 1.634)
+2026-02-19 12:14:00 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-19 12:14:00 - Initializing Servlet 'dispatcherServlet'
+2026-02-19 12:14:00 - Completed initialization in 1 ms
+2026-02-19 12:14:00 - 1
+2026-02-19 12:14:16 - 1,2
+2026-02-19 12:14:20 - 1,2.3
+2026-02-19 12:14:26 - 1,2,3
+2026-02-19 12:14:29 - 1,2,3,4
+2026-02-19 15:37:48 - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-19 15:37:48 - Graceful shutdown complete
+2026-02-19 15:37:48 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-19 15:37:48 - HikariPool-1 - Shutdown initiated...
+2026-02-19 15:37:48 - HikariPool-1 - Shutdown completed.
