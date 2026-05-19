@@ -26,7 +26,7 @@
 #### 2. Filtrado de hoteles
 
 ##### Hotel California
-![Hotel California](imagenes/appPrincipal.png)
+![Hotel California](imagenes/hotelCalifornia.png)
 
 ##### Hotel Transilvania
 ![Hotel Transilvania](imagenes/hotelTransilvania.png)
